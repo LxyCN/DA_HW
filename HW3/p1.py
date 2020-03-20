@@ -35,7 +35,7 @@ x_T[:,0] = np.array([0,0,1,0.6,0.4,0.8])
 
 #generate truth
 for i in range(1, irr):
-    x_T[:,i] = mt(A, x_T[:,i-1].T).flatten() + q[:,i-1]
+    x_T[:,i] = mt(A, x_T[:,i-1]) + q[:,i-1]
 
 y_ob = mt(H, x_T) + r
 
@@ -47,9 +47,9 @@ p = np.diag([0.1,0.1,0.1,0.1,0.5,0.5])
 for i in range(1,irr):
     p = Q + mt(mt(A, p), A.T)
     x[:,i] =  mt(A,x[:,i-1])
-    K = mt(p, mt(H.T, inv(mt(H,mt(p, H.T)) + R)))
+    K = mt(mt(p, H.T), inv(mt(mt(H,p), H.T) + R))
     x[:,i] = x[:,i] + mt(K, (y_ob[:,i] - mt(H,x[:,i])))
-    p = p - mt(K, mt(H,p))
+    p = p - mt(mt(K, H),p)
 
 fig, ax = plt.subplots(1,3)
 
