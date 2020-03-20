@@ -9,8 +9,9 @@ from numpy.linalg import inv
 q1 = 0.2
 q2 = 0.1
 irr = 100
-r = 0.1   #observe
+r = 0.1   
 
+#observe model 
 def h(x):
     return x[2]*sin(x[0]) + np.random.normal(scale=r)
 
@@ -21,7 +22,7 @@ Q = np.array([[0.01**3/3*q1, 0.5*0.01**2*q1, 0],
               [0.5*0.01**2*q1, 0.01*q1, 0],
               [0, 0, 0.01*q2]])
 
-#observe model               
+              
 
 
 q = np.random.multivariate_normal(np.zeros(3), Q, size=irr).T
